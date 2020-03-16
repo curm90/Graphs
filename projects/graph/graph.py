@@ -133,16 +133,30 @@ class Graph:
         depth-first order.
         """
         # Create an empty Stack
+        stack = Stack()
         # Push path to starting vertex to the stack
+        stack.push([starting_vertex])
         # Create an empty set to store visited nodes
+        visited = set()
         # while stack is not empty
-        # Pop first path
-        # Grab last vertex from the path
-        # If last vertex matches dest vertex
-        # Return path
-        # If last vertex not in visited
-        # Mark as visited
-        # Then push paths to all neighbors to the top of the stack
+        while stack.size() > 0:
+            # Pop first path
+            path = stack.pop()
+            # Grab last vertex from the path
+            last_vertex = path[-1]
+            # If last vertex matches dest vertex
+            if last_vertex == destination_vertex:
+                # Return path
+                return path
+            # If last vertex not in visited
+            if last_vertex not in visited:
+                # Mark as visited
+                visited.add(last_vertex)
+            # Then push paths to all neighbors to the top of the stack
+                for neighbor in self.get_neighbors(last_vertex):
+                    path_copy = path[:]
+                    path_copy.append(neighbor)
+                    stack.push(path_copy)
 
     def dfs_recursive(self, starting_vertex):
         """
@@ -224,5 +238,6 @@ if __name__ == '__main__':
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
+    print('Starting DFS')
     print(graph.dfs(1, 6))
     print(graph.dfs_recursive(1, 6))
