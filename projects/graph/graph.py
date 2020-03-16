@@ -64,11 +64,14 @@ class Graph:
         stack = Stack()
         visited = set()
         stack.push(starting_vertex)
+
         while stack.size() > 0:
             vertex = stack.pop()
+
             if vertex not in visited:
                 visited.add(vertex)
                 print(vertex)
+
                 for next_vert in self.vertices[vertex]:
                     stack.push(next_vert)
 
@@ -95,7 +98,19 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        # Create a Queue
+        # Add a path to the starting vertex_id to the queue
+        # Create and empty set to store visited nodes
+        # While the queue is not empty
+            # Dequeue first path
+            # Grab the last vertex from the path
+            # Check if it is the target
+            # If true return the path
+            # Check if it has been visited
+            # If false
+            # Mark it as visited
+            # Then add a path to all neighbours to the back of the queue
+                # Make a copy of the path before adding
 
     def dfs(self, starting_vertex, destination_vertex):
         """
