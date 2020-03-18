@@ -1,4 +1,5 @@
 import random
+from util import Queue
 
 
 class User:
@@ -77,6 +78,15 @@ class SocialGraph:
         The key is the friend's ID and the value is the path.
         """
         visited = {}
+        # Create an empty queue
+        # Enqueue path to starting user id
+        # While queue is not empty
+        # dequeue the path to user
+        # Grab user from the end of path
+        # Check if user in visited
+        # if false - Mark as visited user = key, path = value
+        # enqueue all neighbors
+        # copy path and add neighbor
 
         return visited
 
