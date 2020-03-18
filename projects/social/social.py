@@ -79,14 +79,25 @@ class SocialGraph:
         """
         visited = {}
         # Create an empty queue
+        qq = Queue()
         # Enqueue path to starting user id
+        qq.enqueue([user_id])
         # While queue is not empty
-        # dequeue the path to user
-        # Grab user from the end of path
-        # Check if user in visited
-        # if false - Mark as visited user = key, path = value
-        # enqueue all neighbors
-        # copy path and add neighbor
+        while qq.size() > 0:
+            # dequeue the path to user
+            path = qq.dequeue()
+            # Grab user from the end of path
+            user = path[-1]
+            # Check if user in visited
+            if user not in visited:
+                # if false - Mark as visited user = key, path = value
+                visited[user] = path
+                # enqueue all neighbors
+                for neighbor in self.friendships[user]:
+                    # copy path and add neighbor
+                    path_copy = path[:]
+                    path_copy.append(neighbor)
+                    qq.enqueue(path_copy)
 
         return visited
 
@@ -97,5 +108,5 @@ if __name__ == '__main__':
     print('-----------')
     print(sg.friendships)
     print('-----------')
-    # connections = sg.get_all_social_paths(1)
-    # print(connections)
+    connections = sg.get_all_social_paths(1)
+    print(connections)

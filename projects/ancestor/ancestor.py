@@ -31,7 +31,7 @@ def create_graph(ancestors):
 ancestors = [(1, 3), (2, 3), (3, 6), (5, 6),
              (5, 7), (4, 5), (4, 8), (8, 9), (11, 8), (10, 1)]
 
-print(create_graph(ancestors))
+# print(create_graph(ancestors))
 
 # Test Graph
 # {3: {1, 2}, 6: {3, 5}, 7: {5}, 5: {4}, 8: {11, 4}, 9: {8}, 1: {10}}
@@ -47,15 +47,42 @@ print(create_graph(ancestors))
 '''
 
 
-def get_earliest_ancestor(ancestors, starting_node):
+# NOT WORKING
+def earliest_ancestor(ancestors, starting_node):
+    # Build graph
     graph = create_graph(ancestors)
+    # create a queue
     qq = Queue()
+    # enqueue starting node inside a list
     qq.enqueue([starting_node])
-    earliest_path = None
+ # set initial earlyest ancestor
+    earliest_ancestor = -1
+    # set a max path length to 1
+    path_length = 1
 
+    # while queue has contents
     while qq.size() > 0:
+        # dequeue the path
         path = qq.dequeue()
-        current_node = path[-1]
+        # get the last vert
+        node = path[-1]
+
+        # if path is longer or equal and the value is smaller, or if the path is longer
+        if (len(path) >= path_length and node < earliest_ancestor) or (len(path) > path_length):
+            # set the earliest ancestor to the vert
+            earliest_ancestor = node
+            # set the max path length to the len of the path
+            path_length = len(path)
+        # loop over each neighbor in the graphs vertices at index of vert
+        for neighbor in graph[node]:
+            # make a copy of the path
+            path_copy = list(path)
+            # append neighbor to the coppied path
+            path_copy.append(neighbor)
+            # then enqueue the copied path
+            qq.enqueue(path_copy)
+    # return earliest ancestor
+    return earliest_ancestor
 
 
-get_earliest_ancestor(ancestors, 3)
+print(earliest_ancestor(ancestors, 3))
